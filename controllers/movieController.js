@@ -223,14 +223,23 @@ const searchMovies = async (req, res) => {
 const getMovieDetails = async (req, res) => {
   try {
     const id = req.params.id;
-
-    const response = await axios.get(
-      `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_API_KEY}`
-    );
+    let response;
+    
+    try {
+      // Try movie first
+      response = await axios.get(
+        `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_API_KEY}`
+      );
+    } catch (movieError) {
+      // Fallback to TV show
+      response = await axios.get(
+        `https://api.themoviedb.org/3/tv/${id}?api_key=${TMDB_API_KEY}`
+      );
+    }
 
     res.json(response.data);
   } catch (error) {
-    res.status(500).json({ message: "Error fetching movie details" });
+    res.status(500).json({ message: "Error fetching details" });
   }
 };
 
