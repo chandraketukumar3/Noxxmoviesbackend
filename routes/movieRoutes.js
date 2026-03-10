@@ -10,6 +10,10 @@ const {
   getLatestSeries,
   getTrendingTV,
   getTrendingPeople,
+  getPersonDetails,
+  getPersonMovieCredits,
+  getPersonTVCredits,
+  getBollywoodTV,
   discoverMovies,
   discoverTV,
   searchMovies,
@@ -21,7 +25,11 @@ const {
 router.get("/trending", getTrendingMovies);
 router.get("/trending/tv", getTrendingTV);
 router.get("/trending/people", getTrendingPeople);
+router.get("/person/:id", getPersonDetails);
+router.get("/person/:id/movie_credits", getPersonMovieCredits);
+router.get("/person/:id/tv_credits", getPersonTVCredits);
 router.get("/bollywood", getBollywoodMovies);
+router.get("/bollywood/tv", getBollywoodTV);
 router.get("/hollywood", getHollywoodMovies);
 router.get("/anime", getAnimeMovies);
 router.get("/latest/movies", getLatestMovies);

@@ -22,11 +22,24 @@ const getBollywoodMovies = async (req, res) => {
   try {
     const page = req.query.page || 1;
     const response = await axios.get(
-      `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&with_original_language=hi&page=${page}&sort_by=popularity.desc`
+      `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&with_original_language=hi&region=IN&page=${page}&sort_by=popularity.desc`
     );
     res.json(response.data.results);
   } catch (error) {
     res.status(500).json({ message: "Error fetching Bollywood movies" });
+  }
+};
+
+// Bollywood TV Series
+const getBollywoodTV = async (req, res) => {
+  try {
+    const page = req.query.page || 1;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&with_original_language=hi&page=${page}&sort_by=popularity.desc`
+    );
+    res.json(response.data.results);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching Bollywood TV series" });
   }
 };
 
@@ -105,6 +118,45 @@ const getTrendingPeople = async (req, res) => {
     res.json(response.data.results);
   } catch (error) {
     res.status(500).json({ message: "Error fetching trending people" });
+  }
+};
+
+// Person Details
+const getPersonDetails = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/person/${id}?api_key=${TMDB_API_KEY}`
+    );
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching person details" });
+  }
+};
+
+// Person Movie Credits
+const getPersonMovieCredits = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/person/${id}/movie_credits?api_key=${TMDB_API_KEY}`
+    );
+    res.json(response.data.cast);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching person movie credits" });
+  }
+};
+
+// Person TV Credits
+const getPersonTVCredits = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/person/${id}/tv_credits?api_key=${TMDB_API_KEY}`
+    );
+    res.json(response.data.cast);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching person TV credits" });
   }
 };
 
@@ -227,8 +279,12 @@ module.exports = {
   getLatestSeries,
   getTrendingTV,
   getTrendingPeople,
+  getPersonDetails,
+  getPersonMovieCredits,
+  getPersonTVCredits,
   discoverMovies,
   discoverTV,
+  getBollywoodTV,
   searchMovies,
   getMovieDetails,
   getGenres,
