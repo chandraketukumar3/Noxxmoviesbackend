@@ -14,6 +14,7 @@ const {
   getPersonMovieCredits,
   getPersonTVCredits,
   getBollywoodTV,
+  getAnime,
   discoverMovies,
   discoverTV,
   searchMovies,
@@ -32,6 +33,7 @@ router.get("/bollywood", getBollywoodMovies);
 router.get("/bollywood/tv", getBollywoodTV);
 router.get("/hollywood", getHollywoodMovies);
 router.get("/anime", getAnimeMovies);
+router.get("/anime/tv", getAnime);
 router.get("/latest/movies", getLatestMovies);
 router.get("/latest/series", getLatestSeries);
 router.get("/discover/movies", discoverMovies);

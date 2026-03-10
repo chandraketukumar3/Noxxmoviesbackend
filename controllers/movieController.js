@@ -69,6 +69,19 @@ const getAnimeMovies = async (req, res) => {
   }
 };
 
+// Anime Series
+const getAnime = async (req, res) => {
+  try {
+    const page = req.query.page || 1;
+    const response = await axios.get(
+      `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&with_genres=16&with_origin_country=JP&page=${page}`
+    );
+    res.json(response.data.results);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching anime" });
+  }
+};
+
 // Latest Movies
 const getLatestMovies = async (req, res) => {
   try {
@@ -284,6 +297,7 @@ module.exports = {
   getPersonTVCredits,
   discoverMovies,
   discoverTV,
+  getAnime,
   getBollywoodTV,
   searchMovies,
   getMovieDetails,
