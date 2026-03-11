@@ -281,9 +281,7 @@ const getMovieTrailer = async (req, res) => {
     }
 
     if (!trailer) {
-      return res.json({
-        message: "Trailer for this movie is currently unavailable."
-      });
+      return res.json({ key: null })
     }
 
     res.json(trailer);
